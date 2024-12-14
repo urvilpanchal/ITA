@@ -1,2 +1,2 @@
 # Welcome to the ITA!!!
-[Link] (https://github.com/urvilpanchal/ITA/blob/master/app.py)
+(Link) [https://3ogmd3yeuezd8bjrbnh4fy.streamlit.app/]
