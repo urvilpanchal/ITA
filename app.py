@@ -5,6 +5,8 @@ import nltk
 from Summarization.summarization import summarize_text
 from QA.qa_system import process_questions
 from nltk.data import find
+from Image_caption.caption import generate_caption
+from PIL import Image
 nltk.download('punkt')
 
 try:
@@ -31,7 +33,7 @@ def format_as_bullets(text, num_points=5):
 
 # Streamlit Sidebar
 st.sidebar.title("Options")
-menu_option = st.sidebar.radio("Choose an option:", ["Summarization", "QA System", "About"])
+menu_option = st.sidebar.radio("Choose an option:", ["Summarization", "QA System", "Image Captioning","About"])
 
 if menu_option == "Summarization":
     # Summarization Section
@@ -101,6 +103,31 @@ elif menu_option == "QA System":
         else:
             st.warning("Please provide both context and questions.")
 
+elif menu_option == "Image Captioning":
+    # Question Answering System Section
+    st.title("Image Caption Generator")
+    st.write("Upload a image to generate caption")
+
+    # PDF uploader for context
+    uploaded_img = st.file_uploader("Upload a Image :", type=["jpg", "jpeg", "png"])
+
+    # Extract text from uploaded PDF
+    if uploaded_img:
+        st.write("Image Uploaded!!")
+        image = Image.open(uploaded_img)
+    
+    # Display the image
+        st.image(image, caption="Uploaded Image", use_column_width=True)
+
+    # QA button
+    if st.button("Get Answers"):
+        st.write("Analyzing.........")
+        cap_1 = generate_caption(uploaded_img)
+        st.write("Generated Caption : "+cap_1)
+    else:
+            st.warning("Please provide valid Image file")
+
+
 elif menu_option == "About":
     # About Section
     st.title("About")
@@ -110,6 +137,8 @@ elif menu_option == "About":
 
     1. **Summarization**: Upload a PDF file or enter text to generate concise summaries.
     2. **QA System**: Enter a context and ask questions to get precise answers.
+    3. **Image Captioning**: Upload an image to generate descriptive captions.
 
-    Built using state-of-the-art NLP models and libraries.
-    """)
+    Built using state-of-the-art NLP and computer vision models and libraries.
+"""
+)
